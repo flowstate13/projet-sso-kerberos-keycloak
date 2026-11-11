@@ -22,6 +22,22 @@ Un utilisateur ouvre sa session Windows dans le domaine **polycorp.test**, puis 
  └─────────────────────────────────────────────────────────────────────────┘
 ```
 
+![Architecture](docs/img/architecture.png)
+
+Rapport complet : [docs/Rapport_Projet2_Aziz_Chalbi.pdf](docs/Rapport_Projet2_Aziz_Chalbi.pdf)
+
+## Résultats démontrés
+
+| Démonstration | Trace |
+|---|---|
+| SSO depuis CL01 sans saisie | `klist` : ticket `HTTP/sso.polycorp.test` AES-256 ; page « accès accordé à bdupont » |
+| Accès corrélé sur DC01 | 4769 `Service Name = svc-kc-http`, etype 0x12, status 0x0 |
+| Attributs AD dans l'assertion | email, givenName, sn, upn, title, memberOf (Developers, Staff) |
+| Dialogue réseau | 401 `WWW-Authenticate: Negotiate` → `Authorization: Negotiate` (AP-REQ) → 200 + jeton mutuel |
+| Hors domaine / sans ticket | formulaire Keycloak |
+| Compte désactivé | 4768 échec 0x12 ; Keycloak `Clients credentials have been revoked (18)` |
+| Horloge IdP +10 min | Keycloak `Clock skew too great (37)` |
+
 ## Contenu
 
 | Dossier | Rôle |

@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#fff;font-family:Calibri,"Segoe UI",Arial,sans-serif}
+svg text{font-family:Calibri,"Segoe UI",Arial,sans-serif}
+</style></head><body>
+<svg width="1400" height="800" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F3864"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2E7D32"/></marker></defs>
+<rect x="10" y="10" width="1380" height="780" rx="14" fill="#F6F8FB" stroke="#C9D3E3"/>
+<text x="30" y="44" font-size="22" font-weight="700" fill="#1F3864">Réseau Azure vnet-polycorp 192.168.50.0/24 — domaine polycorp.test (realm POLYCORP.TEST)</text>
+<!-- CL01 -->
+<rect x="30" y="300" width="350" height="230" rx="10" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+<text x="48" y="335" font-size="22" font-weight="700" fill="#1F3864">CL01 — 192.168.50.20</text>
+<text x="48" y="362" font-size="17" fill="#333">Windows 10 Pro, membre du domaine</text>
+<text x="48" y="392" font-size="17" fill="#333">Session POLYCORP\bdupont</text>
+<text x="48" y="418" font-size="17" fill="#333">Cache : TGT + HTTP/sso.polycorp.test</text>
+<text x="48" y="448" font-size="17" fill="#333">Edge — GPO PRJ-SSO-Navigateur :</text>
+<text x="48" y="472" font-size="17" fill="#333">AuthServerAllowlist = sso.polycorp.test</text>
+<text x="48" y="500" font-size="17" fill="#333">zone Intranet (ZoneMapKey)</text>
+<!-- DC01 -->
+<rect x="500" y="70" width="440" height="190" rx="10" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+<text x="520" y="104" font-size="22" font-weight="700" fill="#1F3864">DC01 — 192.168.50.10</text>
+<text x="520" y="132" font-size="17" fill="#333">AD DS + DNS + KDC (lsass)</text>
+<text x="520" y="160" font-size="17" fill="#333">svc-kc-http : SPN HTTP/sso.polycorp.test, AES-256</text>
+<text x="520" y="186" font-size="17" fill="#333">svc-kc-ldap : bind LDAP lecture seule</text>
+<text x="520" y="212" font-size="17" fill="#333">DNS : sso, app → 192.168.50.30</text>
+<text x="520" y="238" font-size="17" fill="#333">Journal Security : 4768 / 4769 / 4771</text>
+<!-- SSO VM -->
+<rect x="545" y="330" width="825" height="380" rx="10" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+<text x="565" y="364" font-size="22" font-weight="700" fill="#1F3864">sso.polycorp.test — 192.168.50.30 (Ubuntu 24.04, Docker Compose)</text>
+<rect x="565" y="390" width="420" height="300" rx="8" fill="#EAF1FB" stroke="#5B7DB1"/>
+<text x="582" y="420" font-size="20" font-weight="700" fill="#1F3864">Keycloak 26.8.1 :8080 — realm polycorp</text>
+<text x="582" y="450" font-size="17" fill="#333">Flux browser : Kerberos = ALTERNATIVE</text>
+<text x="582" y="476" font-size="17" fill="#333">(puis Cookie, puis formulaire)</text>
+<text x="582" y="506" font-size="17" fill="#333">Fédération LDAP ad-polycorp : READ_ONLY</text>
+<text x="582" y="532" font-size="17" fill="#333">usersDn OU=People, groupes OU=Groups</text>
+<text x="582" y="562" font-size="17" fill="#333">Kerberos : keytab HTTP/sso (kvno 3, AES-256)</text>
+<text x="582" y="592" font-size="17" fill="#333">Client SAML : assertions signées RSA-SHA256</text>
+<text x="582" y="618" font-size="17" fill="#333">Attributs : email, givenName, sn, upn,</text>
+<text x="582" y="642" font-size="17" fill="#333">title, memberOf (groupes AD)</text>
+<text x="582" y="672" font-size="17" fill="#333">Événements LOGIN / LOGIN_ERROR</text>
+<rect x="1010" y="390" width="320" height="300" rx="8" fill="#FFF4E8" stroke="#E07B22"/>
+<text x="1030" y="420" font-size="20" font-weight="700" fill="#B3541E">Application :8181</text>
+<text x="1030" y="450" font-size="17" fill="#333">SP SAML 2.0 (python3-saml)</text>
+<text x="1030" y="476" font-size="17" fill="#333">app.polycorp.test</text>
+<text x="1030" y="506" font-size="17" fill="#333">wantAssertionsSigned</text>
+<text x="1030" y="532" font-size="17" fill="#333">Audience, Recipient,</text>
+<text x="1030" y="558" font-size="17" fill="#333">InResponseTo, NotOnOrAfter</text>
+<text x="1030" y="584" font-size="17" fill="#333">rejeu refusé</text>
+<!-- arrows -->
+<line x1="250" y1="300" x2="500" y2="160" stroke="#1F3864" stroke-width="3" marker-end="url(#a)"/>
+<text x="210" y="215" font-size="18" font-weight="700" fill="#1F3864">① TGS-REQ</text>
+<text x="190" y="238" font-size="16" fill="#1F3864">HTTP/sso.polycorp.test</text>
+<line x1="382" y1="440" x2="563" y2="470" stroke="#1F3864" stroke-width="3" marker-end="url(#a)"/>
+<text x="392" y="425" font-size="17" font-weight="700" fill="#1F3864">② HTTP Negotiate</text>
+<text x="392" y="500" font-size="15" fill="#1F3864">401 Negotiate puis</text>
+<text x="392" y="520" font-size="15" fill="#1F3864">AP-REQ (SPNEGO)</text>
+<line x1="555" y1="420" x2="555" y2="262" stroke="#2E7D32" stroke-width="3" marker-end="url(#g)"/>
+<text x="568" y="300" font-size="18" font-weight="700" fill="#2E7D32">③ LDAP 389 : profil + groupes</text>
+<line x1="987" y1="560" x2="1008" y2="560" stroke="#1F3864" stroke-width="3" marker-end="url(#a)"/>
+<path d="M 200 532 L 200 745 L 1170 745 L 1170 694" fill="none" stroke="#E07B22" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#a)"/>
+<text x="300" y="775" font-size="18" font-weight="700" fill="#B3541E">④ assertion SAML signée (HTTP-POST via le navigateur) → session dans l’application</text>
+</svg></body></html>
