@@ -1,0 +1,6 @@
+.env
+*.keytab
+*.pem
+id_*
+.secrets
+__pycache__/
